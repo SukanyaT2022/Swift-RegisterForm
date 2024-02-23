@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController {
 
@@ -19,10 +20,10 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var submitButton: UIButton!
     
-    var name = ""
-    var address = ""
-    var phone = ""
-    var email = ""
+    var memberName = ""
+    var memberAddress = ""
+    var memberPhone = ""
+    var memberEmail = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -35,12 +36,31 @@ class ViewController: UIViewController {
     }
 
     @IBAction func submitButtonAction(_ sender: Any) {
-        print(name)
-        print(address)
-        print(phone)
-        print(email)
+        print(memberName)
+        print(memberAddress)
+        print(memberPhone)
+        print(memberEmail)
+        saveData()
     }
-    
+    func saveData(){
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
+            let context = appDelegate.persistentContainer.viewContext
+            let description = NSEntityDescription.entity(forEntityName: "Member", in:context)
+            let memberEntity = NSManagedObject(entity: description!, insertInto: context) as? Member//! is force unwrap it can not be an option
+            memberEntity?.name = memberName //.name is core data - right side name is variable
+            memberEntity?.address = memberAddress
+            memberEntity?.phone = memberPhone
+            memberEntity?.email = memberEmail
+            //below save everything on core data
+            appDelegate.saveContext()
+        }
+    }
+    func refreshScreen(){
+        
+    }
+    func fetchMemberList(){
+        
+    }
 }
 extension ViewController: UITextFieldDelegate{
     //type shouldhange --enter -- what user type need store in variable
@@ -48,13 +68,13 @@ extension ViewController: UITextFieldDelegate{
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         switch textField{
         case nameTextField:
-            name = (textField.text ?? "") + string//if text not there so it consider empty --string from line44
+           memberName = (textField.text ?? "") + string//if text not there so it consider empty --string from line44
         case addressTextField:
-            address = (textField.text ?? "") + string
+            memberAddress = (textField.text ?? "") + string
         case phoneTextField:
-            phone = (textField.text ?? "") + string
+            memberPhone = (textField.text ?? "") + string
         case emailTextField:
-           email = (textField.text ?? "") + string
+           memberEmail = (textField.text ?? "") + string
         default:
             print()
         }
