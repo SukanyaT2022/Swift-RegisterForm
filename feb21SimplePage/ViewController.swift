@@ -40,8 +40,22 @@ class ViewController: UIViewController {
         print(memberAddress)
         print(memberPhone)
         print(memberEmail)
+        //if check if user fill all input box if one or all empty if not user can not click submit
+        if memberName.isEmpty || memberAddress.isEmpty || memberEmail.isEmpty || memberPhone.isEmpty{
+            showAlert(message: "Enter All Field")
+            return
+        }
         saveData()
+        refreshScreen()
     }
+    func showAlert(message:String){
+        let alertController = UIAlertController(title: "Error", message: message, preferredStyle:.alert)
+        let okAction = UIAlertAction(title: "OK", style: .default)//create ok action if error message pop up
+        alertController.addAction(okAction)//add action to alert
+        self.present(alertController, animated:true)// display the box
+    }
+    
+        
     func saveData(){
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
             let context = appDelegate.persistentContainer.viewContext
@@ -55,9 +69,18 @@ class ViewController: UIViewController {
             appDelegate.saveContext()
         }
     }
+        //refresh screen sfter user type and data saved
     func refreshScreen(){
-        
+        nameTextField.text = "" // connection
+        addressTextField.text = ""
+        phoneTextField.text = ""
+        emailTextField.text = ""
+        memberName = "" // empty variable
+        memberAddress = ""
+        memberPhone = ""
+        memberEmail = ""
     }
+    
     func fetchMemberList(){
         
     }
