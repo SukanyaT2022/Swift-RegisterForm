@@ -20,10 +20,15 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var submitButton: UIButton!
     
+    @IBOutlet weak var deleteButton: UIButton!
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    
     var memberName = ""
     var memberAddress = ""
     var memberPhone = ""
     var memberEmail = ""
+    var memberData : Member?
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -33,6 +38,15 @@ class ViewController: UIViewController {
         phoneTextField.delegate = self
         emailTextField.delegate = self
         
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let memberData{
+            nameTextField.text = memberData.name
+           addressTextField.text = memberData.address
+          phoneTextField.text = memberData.phone
+            emailTextField.text = memberData.email
+        }
     }
 
     @IBAction func submitButtonAction(_ sender: Any) {
@@ -46,8 +60,13 @@ class ViewController: UIViewController {
             return
         }
         saveData()
-        refreshScreen()
+     
     }
+    
+    @IBAction func deleteButtonAction(_ sender: Any) {
+        
+    }
+    
     func showAlert(message:String){
         let alertController = UIAlertController(title: "Error", message: message, preferredStyle:.alert)
         let okAction = UIAlertAction(title: "OK", style: .default)//create ok action if error message pop up
@@ -67,10 +86,18 @@ class ViewController: UIViewController {
             memberEntity?.email = memberEmail
             //below save everything on core data
             appDelegate.saveContext()
+            
+            //below pop up resister
+            let alertController = UIAlertController(title: "", message: "Registered!", preferredStyle:.alert)
+            let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+                self.clearScreen() //action ok to cler other text on screen
+            }//create ok action if error message pop up to close popup register
+            alertController.addAction(okAction)//add action to alert
+            self.present(alertController, animated:true)// display the box
         }
     }
         //refresh screen sfter user type and data saved
-    func refreshScreen(){
+    func clearScreen(){
         nameTextField.text = "" // connection
         addressTextField.text = ""
         phoneTextField.text = ""
