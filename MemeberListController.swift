@@ -16,7 +16,13 @@ class MemeberListController:UIViewController, UITableViewDataSource, UITableView
         //if we have tableview always have delegate and datasauce
         memberListTableView.dataSource = self
         memberListTableView.delegate = self
+     
+    }
+    //refresh page--after delete detail of member -it update the pae
+    override func viewWillAppear(_ animated: Bool) {
+       super.viewWillAppear(animated)
         fetchMember()
+        memberListTableView.reloadData()
     }
     func fetchMember(){
         let fetchRequest = Member.fetchRequest()

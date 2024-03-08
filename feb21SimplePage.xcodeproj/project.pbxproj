@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		185D5BE12B98D38800BD716D /* EntryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185D5BE02B98D38800BD716D /* EntryPage.swift */; };
 		18616AF32B90EE54007079AE /* MemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18616AF22B90EE54007079AE /* MemberTableViewCell.swift */; };
 		18616AF52B90EF89007079AE /* MemeberListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18616AF42B90EF89007079AE /* MemeberListController.swift */; };
 		18A08E912B865BA7004F1D72 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A08E902B865BA7004F1D72 /* AppDelegate.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		185D5BE02B98D38800BD716D /* EntryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryPage.swift; sourceTree = "<group>"; };
 		18616AF22B90EE54007079AE /* MemberTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberTableViewCell.swift; sourceTree = "<group>"; };
 		18616AF42B90EF89007079AE /* MemeberListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemeberListController.swift; sourceTree = "<group>"; };
 		18A08E8D2B865BA7004F1D72 /* feb21SimplePage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = feb21SimplePage.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,6 +80,7 @@
 				18A08EA12B865BA8004F1D72 /* Info.plist */,
 				18A08E992B865BA7004F1D72 /* feb21SimplePage.xcdatamodeld */,
 				18616AF22B90EE54007079AE /* MemberTableViewCell.swift */,
+				185D5BE02B98D38800BD716D /* EntryPage.swift */,
 			);
 			path = feb21SimplePage;
 			sourceTree = "<group>";
@@ -159,6 +162,7 @@
 				18616AF52B90EF89007079AE /* MemeberListController.swift in Sources */,
 				18616AF32B90EE54007079AE /* MemberTableViewCell.swift in Sources */,
 				18A08EAA2B89007A004F1D72 /* Member+CoreDataProperties.swift in Sources */,
+				185D5BE12B98D38800BD716D /* EntryPage.swift in Sources */,
 				18A08E9B2B865BA7004F1D72 /* feb21SimplePage.xcdatamodeld in Sources */,
 				18A08EA92B89007A004F1D72 /* Member+CoreDataClass.swift in Sources */,
 			);

@@ -24,6 +24,10 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
     
+    @IBOutlet weak var memberImageView: UIImageView!
+    
+    @IBOutlet weak var addPhotoButton: UIButton!
+    
     var memberName = ""
     var memberAddress = ""
     var memberPhone = ""
@@ -39,13 +43,33 @@ class ViewController: UIViewController {
         emailTextField.delegate = self
         
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        //below one screen 2 function for second task if click user name so it go to register page and show all details
         if let memberData{
+            //cnahge title register label to memeber detail
+            titleLabel.text = "Member Details"
             nameTextField.text = memberData.name
            addressTextField.text = memberData.address
           phoneTextField.text = memberData.phone
             emailTextField.text = memberData.email
+            
+// we say weather user can chnage something or not but put false we we not allow
+            nameTextField.isUserInteractionEnabled = false
+            addressTextField.isUserInteractionEnabled = false
+            phoneTextField.isUserInteractionEnabled = false
+            emailTextField.isUserInteractionEnabled = false
+            //below we hide submit button coz it's detail screen-hidden
+            submitButton.isHidden = true
+            //below we show delete button visibel
+            deleteButton.isHidden = false
+            
+        }else{
+//            for registration page need to show submit button
+            submitButton.isHidden = false
+            deleteButton.isHidden = true // hide delete button on register page
+            
         }
     }
 
@@ -62,10 +86,32 @@ class ViewController: UIViewController {
         saveData()
      
     }
-    
+    //delete button from details page -register form page
     @IBAction func deleteButtonAction(_ sender: Any) {
-        
+        //below if we have member data if have value then give data from optional
+        if let memberData, let appDelegate = UIApplication.shared.delegate as? AppDelegate{
+            //delete entity from core data
+            appDelegate.persistentContainer.viewContext.delete(memberData)
+            //after delete then save change
+            appDelegate.saveContext()
+            //after delete in register page then go back to memeber list page 
+            self.navigationController?.popViewController(animated: true)
+        }
     }
+    
+    
+    @IBAction func addPhotoButtonAction(_ sender: Any) {
+        let actionSheet = UIAlertController(title: "Choose", message: "", preferredStyle: .actionSheet)
+        let cameraAction = UIAlertAction(title: "Camera", style: .default)
+        let galleryAction = UIAlertAction(title: "Gallery", style: .default)
+        let cancelAction = UIAlertAction(title: "Cancel", style:.cancel)
+        actionSheet.addAction(cameraAction)
+        actionSheet.addAction(galleryAction)
+        actionSheet.addAction(cancelAction)
+        self.present(actionSheet, animated: true)
+    }
+    
+    //continue write code open camera and gallery and display
     
     func showAlert(message:String){
         let alertController = UIAlertController(title: "Error", message: message, preferredStyle:.alert)
