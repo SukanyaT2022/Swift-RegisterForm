@@ -16,16 +16,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mqw-bj-nWG">
-                                <rect key="frame" x="138.66666666666666" y="409" width="116" height="34.333333333333314"/>
-                                <color key="backgroundColor" systemColor="systemGreenColor"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Registration"/>
-                                <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="S4l-eQ-nfe"/>
-                                </connections>
-                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="office" translatesAutoresizingMaskIntoConstraints="NO" id="guJ-TI-lS1">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z54-rE-Lzb">
                                 <rect key="frame" x="141.66666666666666" y="473.33333333333331" width="110" height="35"/>
                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
@@ -36,14 +29,28 @@
                                     <segue destination="bWn-fn-P2y" kind="show" id="w6h-di-65g"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mqw-bj-nWG">
+                                <rect key="frame" x="138.66666666666666" y="409" width="116" height="34.333333333333314"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Registration"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="S4l-eQ-nfe"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bHm-ZX-Tmg"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="guJ-TI-lS1" secondAttribute="bottom" id="06y-QU-gbP"/>
+                            <constraint firstItem="guJ-TI-lS1" firstAttribute="top" secondItem="vKr-uQ-rm7" secondAttribute="top" id="Eb9-S2-pLe"/>
                             <constraint firstItem="Z54-rE-Lzb" firstAttribute="centerX" secondItem="vKr-uQ-rm7" secondAttribute="centerX" id="F3c-zn-V6x"/>
                             <constraint firstItem="Z54-rE-Lzb" firstAttribute="top" secondItem="mqw-bj-nWG" secondAttribute="bottom" constant="30" id="G5Q-zi-jsN"/>
+                            <constraint firstItem="guJ-TI-lS1" firstAttribute="leading" secondItem="bHm-ZX-Tmg" secondAttribute="leading" id="TZK-vZ-wPF"/>
                             <constraint firstItem="mqw-bj-nWG" firstAttribute="centerX" secondItem="vKr-uQ-rm7" secondAttribute="centerX" id="WkV-tT-kI3"/>
                             <constraint firstItem="mqw-bj-nWG" firstAttribute="centerY" secondItem="vKr-uQ-rm7" secondAttribute="centerY" id="Yde-Fd-yHa"/>
+                            <constraint firstAttribute="trailing" secondItem="guJ-TI-lS1" secondAttribute="trailing" id="ZI9-lr-LTs"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="deo-8s-DDU"/>
@@ -322,6 +329,7 @@
         <segue reference="S4l-eQ-nfe"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="office" width="800" height="1199"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -54,7 +54,10 @@ class ViewController: UIViewController {
            addressTextField.text = memberData.address
           phoneTextField.text = memberData.phone
             emailTextField.text = memberData.email
-            
+            if let phone = memberData.phone{
+                getImage(imageName: phone)
+                
+            }
 // we say weather user can chnage something or not but put false we we not allow
             nameTextField.isUserInteractionEnabled = false
             addressTextField.isUserInteractionEnabled = false
@@ -83,8 +86,10 @@ class ViewController: UIViewController {
             showAlert(message: "Enter All Field")
             return
         }
+        if let image = memberImageView.image{
+            saveImage(imageName: memberPhone, image: image)
+        }
         saveData()
-     
     }
     //delete button from details page -register form page
     @IBAction func deleteButtonAction(_ sender: Any) {
@@ -102,15 +107,25 @@ class ViewController: UIViewController {
     
     @IBAction func addPhotoButtonAction(_ sender: Any) {
         let actionSheet = UIAlertController(title: "Choose", message: "", preferredStyle: .actionSheet)
-        let cameraAction = UIAlertAction(title: "Camera", style: .default)
-        let galleryAction = UIAlertAction(title: "Gallery", style: .default)
+        let cameraAction = UIAlertAction(title: "Camera", style: .default) { action in
+            self.openCamera(source: .camera)
+        }
+        let galleryAction = UIAlertAction(title: "Gallery", style: .default) { action in
+            self.openCamera(source: .photoLibrary)
+        }
         let cancelAction = UIAlertAction(title: "Cancel", style:.cancel)
         actionSheet.addAction(cameraAction)
         actionSheet.addAction(galleryAction)
         actionSheet.addAction(cancelAction)
         self.present(actionSheet, animated: true)
     }
-    
+    //if user click cameara it open camera-if pick gallery and gallery open
+    func openCamera(source: UIImagePickerController.SourceType){
+      let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = source
+        imagePicker.delegate = self
+        self.present(imagePicker, animated: true)
+    }
     //continue write code open camera and gallery and display
     
     func showAlert(message:String){
@@ -119,8 +134,26 @@ class ViewController: UIViewController {
         alertController.addAction(okAction)//add action to alert
         self.present(alertController, animated:true)// display the box
     }
-    
-        
+    //when we call saveImage func we use phone number to identify unique id
+    //
+    func saveImage(imageName:String,image:UIImage){
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let fileURL = documentDirectory.appendingPathComponent(imageName)
+        if FileManager.default.fileExists(atPath: fileURL.path) == false{
+            try? image.pngData()?.write(to: fileURL)
+            
+        }
+    }
+    //function get image from the document--we not save on core such as name the file data but we save name in directory
+    func getImage(imageName:String){
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let fileURL = documentDirectory.appendingPathComponent(imageName)
+        if FileManager.default.fileExists(atPath: fileURL.path) == true{
+            let image = UIImage(contentsOfFile: fileURL.path)
+            memberImageView.image = image
+            
+        }
+    }
     func saveData(){
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
             let context = appDelegate.persistentContainer.viewContext
@@ -142,6 +175,8 @@ class ViewController: UIViewController {
             self.present(alertController, animated:true)// display the box
         }
     }
+ 
+    
         //refresh screen sfter user type and data saved
     func clearScreen(){
         nameTextField.text = "" // connection
@@ -152,11 +187,11 @@ class ViewController: UIViewController {
         memberAddress = ""
         memberPhone = ""
         memberEmail = ""
-    }
-    
-    func fetchMemberList(){
+        memberImageView.image = nil
         
     }
+    
+ 
 }
 extension ViewController: UITextFieldDelegate{
     //type shouldhange --enter -- what user type need store in variable
@@ -177,5 +212,19 @@ extension ViewController: UITextFieldDelegate{
        return true
     }
     
+}
+
+extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    //this function get image after user select
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true)
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
+            memberImageView.image = image
+        }
+    }
+    //if user click cancel button above gallery
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+    }
 }
 
